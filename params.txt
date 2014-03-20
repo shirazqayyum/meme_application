@@ -1,0 +1,33 @@
+
+EDU>> help SLAW_MATLAB
+  SLAW_NS2(dist_alpha, num_user, size_max, n_wp, v_Hurst, Thours, B_range, beta, MIN_PAUSE, MAX_PAUSE)
+ 
+  SLAW Trace Generator
+  Written by Seongik Hong, NCSU, US (3/10/2009)
+ 	Waypoint Map Generator by Kyunghan Lee, KAIST, Korea
+ 
+  Input arguments
+ 	dist_alpha: distance alpha (1 < dist_alpha < 6)
+ 	num_user: number of mobile users
+ 	size_max: a side of a right square simulation area
+ 	n_wp: number of waypoints
+ 	v_Hurst: Hurst parameter for self-similarity of waypoints 
+ 		(0.5 < v_Hurst < 1)
+ 	Thours: Total hours of trace generation (hours)
+ 	B_range: clustering range (meter)
+ 		If the waypoints are in B_range, they are considered as belonged to
+ 		the same cluster
+ 	beta: Levy exponent for pause time, 0 < beta <= 2
+ 	MIN_PAUSE: minimum pause time (second)
+ 	MAX_PAUSE: maximum pause time (second)
+ 
+  Example:
+ 	trace = SLAW_MATLAB(3, 20, 2000, 2000, 0.75, 10, 50, 1, 30, 60*60);
+ 
+  Based on the method of Kyunghan Lee (KAIST), Seongik Hong (NCSU),
+ 	Seong Joon Kim (NCSU), Injong Rhee (NCSU) and Song Chong (KAIST),
+ 	SLAW: A Mobility Model for Human Walks, The 28th IEEE
+ 	Conference on Computer Communications (INFOCOM), Rio de Janeiro,
+ 	Brazil, Apr. 2009.
+
+trace = SLAW_MATLAB (3, 20, 2000, 2000, 0.75, 4, 50, 1, 30, 60*60)
