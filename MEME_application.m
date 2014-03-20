@@ -1,3 +1,5 @@
+% Author: Shiraz Qayyum %
+
 % Application of MEME: video sharing using clusters %
 
 load('trace.mat');
