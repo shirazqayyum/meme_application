@@ -5,8 +5,11 @@ load('trace.mat');
 
 % Changing memory experiments %
 max_mem = 7;
-results_mem_range_100 = zeros(max_mem - 1, 1);
+results_simple_range_150 = zeros(1000, size(trace, 2) - (max_mem - 1), max_mem - 1);
+
 for i = 1 : max_mem - 1
     result = MEME_application(150, i, 0, trace);
-    results_mem_range_100(i, 1) = sum(sum(result(:, max_mem - i : end)));
+    results_simple_range_150(:,:,i) = result(:, max_mem - i : end);
 end
+
+save('results_simple_range_150','results_simple_range_150');
