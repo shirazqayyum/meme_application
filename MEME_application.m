@@ -57,8 +57,14 @@ helper = close_nodes(1, 1);
          
          if ( ~isempty(candidates) )
              display('non-empty');
-             
+             [min_val min_index] = min(distances(candidates, time) - (RANGE/2) );                   % among candidates find a helper closest to mid range
+             helper = candidates(min_index); 
          end
+     end
+     
+     % Bad times - no one is in the range to share the burden %
+     if ( distances(helper, time) > RANGE )
+         
      end
          
          

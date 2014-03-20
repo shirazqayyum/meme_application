@@ -1,3 +1,5 @@
+% Author: Shiraz Qayyum %
+
 % Application of MEME: video sharing using clusters %
 
 load('trace.mat');
@@ -35,21 +37,34 @@ end
 distances_diff = diff(distances, 1, 2) <= 0;
 
 % Generate the initial helper node %
-close_nodes = find((distances(:, mem + 1) <= ) & (distances(:, mem + 1) > 0));
+close_nodes = find((distances(:, mem + 1) <= RANGE) & (distances(:, mem + 1) > 0));
 helper = close_nodes(1, 1);
 
 % figure;
 % c = linspace(1,40,20);
 % s = 60;
 % 
- for time = (mem + 1) : 120
+ for time = (mem + 1) : size(trace,2)
      
      % [1 1 1 0 0 0] if sum is taken of last three (memory) terms and
      % is zero; means moving away. If that is the case, we are in a bad
      % situation and try doing something about it
      s = sum(distances_diff(helper, time - mem : time - 1)); 
      if ( s == 0 )
-         within_range = distances(:, time) <= RANGE
+         within_range = (distances(:, time) <= RANGE) & ( distances(:, time) > 0 );         % nodes that are within range
+         continuous_closer = sum(distances_diff(:, time - mem : time - 1), 2) == mem;       % nodes that are continuous moving closer
+         candidates = find(within_range & continuous_closer);                               % intersection of above two (the good candidates)
+         
+         if ( ~isempty(candidates) )
+             display('non-empty');
+             [min_val min_index] = min(distances(candidates, time) - (RANGE/2) );                   % among candidates find a helper closest to mid range
+             helper = candidates(min_index); 
+         end
+     end
+     
+     % Bad times -
+     if ( distances(helper, time) > RANGE )
+     end
          
          
      %scatter(trace(:,ctr,1), trace(:,ctr,2),s ,c,'LineWidth',1.5)
